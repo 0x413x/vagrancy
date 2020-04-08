@@ -18,6 +18,13 @@ module Vagrancy
       env['sinatra.error'].message
     end
 
+    get '/inventory' do
+      boxes = filestore.boxes()
+      content_type 'application/json'
+      {
+        :boxes => boxes
+      }.to_json
+    end
 
     get '/:username/:name' do
       box = Vagrancy::Box.new(params[:name], params[:username], filestore, request)

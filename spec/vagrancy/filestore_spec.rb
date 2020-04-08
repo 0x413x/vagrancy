@@ -49,6 +49,16 @@ describe Vagrancy::Filestore do
 
   end
 
+  describe '#boxes' do
+    it 'returns a list of boxes identified as two directories' do
+      allow(Dir).to receive(:glob).with('/root/*/*').and_return ['/root/base/1', '/root/other/2']
+      allow(File).to receive(:directory?).with('/root/base/1').and_return true
+      allow(File).to receive(:directory?).with('/root/other/2').and_return true
+
+      expect(filestore.boxes()).to eq ['base/1', 'other/2']
+    end
+  end
+
   describe '#read' do
     it 'delegates reads to File module' do
       expect(File).to receive(:read).with('/root/file.txt')
