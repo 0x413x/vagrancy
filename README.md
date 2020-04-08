@@ -70,6 +70,7 @@ Operation| Command
 **Manually uploading a box** | `curl http://localhost:8099/myusername/ubuntu/1.0.0/virtualbox --upload-file ubuntu-precise.box`
 **Listing box versions** | `curl http://localhost:8099/myusername/ubuntu`
 **Deleting all box versions** | *Each box must be specifically deleted*
+**Listing all boxes** | `curl http://localhost:8099/inventory`
 
 ### Security
 Vagrancy is intending to be used in a trusted network and hence doesn't deal with authentication. As can be see in

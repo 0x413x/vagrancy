@@ -24,6 +24,12 @@ module Vagrancy
       end
     end
 
+    def boxes()
+      Dir.glob("#{@base_path}*/*").select {|d| File.directory? d}.collect do |entry|
+        entry.sub! "#{@base_path}", ""
+      end
+    end
+
     # Safely writes by locking
     def write(file, io_stream)
       with_parent_directory_created(file) do 
