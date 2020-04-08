@@ -45,6 +45,9 @@ module Vagrancy
       File.unlink(file_path(file))
     end
 
+    def delete_empty_dirs()
+      Dir["#{@base_path}*/**/"].reverse_each { |d| Dir.rmdir d if Dir.entries(d).sort==%w(. ..) }
+    end
 
     private
 
