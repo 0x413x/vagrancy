@@ -47,8 +47,9 @@ module Vagrancy
       box = Vagrancy::Box.new(params[:name], params[:username], filestore, request)
       provider_box = ProviderBox.new(params[:provider], params[:version], box, filestore, request)
 
-      status provider_box.exists? ? 200 : 404
+      halt 404 unless provider_box.exists?
       provider_box.delete
+      status 200
     end
 
     # Atlas emulation, no authentication
