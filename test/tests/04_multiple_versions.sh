@@ -35,10 +35,15 @@ checkVersion 0.0.1
 checkVersion 0.1.0
 checkVersion 1.0.0
 checkVersion 1.1.0
+checkInInventory test/multiversion
 
 deleteBox test/multiversion 0.0.1
+checkInInventory test/multiversion
 deleteBox test/multiversion 0.1.0
+checkInInventory test/multiversion
 deleteBox test/multiversion 1.0.0
+checkInInventory test/multiversion
 deleteBox test/multiversion 1.1.0
+checkNotInInventory test/multiversion
 
 rm -f /tmp/dummy.box /tmp/dummy.box.2 /tmp/versionlist.txt

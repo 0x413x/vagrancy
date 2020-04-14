@@ -3,7 +3,6 @@
 #  source ${WORKDIR}/helpers/functions.sh
 #
 
-
 # uploadBox <FILE> <BOXNAME> <VERSION> <PROVIDER> <EXPECTED HTTP CODE>
 function uploadBox() {
     BOXFILE=$1
@@ -105,3 +104,40 @@ function checkVersionList() {
 	fi
     fi
 }
+
+# checkInInventory <BOXNAME> <EXPECTED HTTP CODE>
+function checkInInventory() {
+    BOXNAME=$1
+    EXPECTED_HTTP_STATUS=${2:-200}
+
+    echo "Checking inventory for box $BOXNAME..."
+    HTTP_STATUS=$(curl -w "%{http_code}" -o /tmp/inventory ${VAGRANCY_URL}/inventory)
+    if [[ "$HTTP_STATUS" != *"$EXPECTED_HTTP_STATUS"* ]]; then
+	echo "ERROR: Expected HTTP status $EXPECTED_HTTP_STATUS for inventory command but received $HTTP_STATUS!"
+	exit 1
+    fi
+
+    if ! grep -q $BOXNAME /tmp/inventory; then
+	echo "ERROR: The inventory did not list $BOXNAME!"
+	exit 1
+    fi
+}
+
+# checkNotInInventory <BOXNAME> <EXPECTED HTTP CODE>
+function checkNotInInventory() {
+    BOXNAME=$1
+    EXPECTED_HTTP_STATUS=${2:-200}
+
+    echo "Checking inventory for box $BOXNAME..."
+    HTTP_STATUS=$(curl -w "%{http_code}" -o /tmp/inventory ${VAGRANCY_URL}/inventory)
+    if [[ "$HTTP_STATUS" != *"$EXPECTED_HTTP_STATUS"* ]]; then
+	echo "ERROR: Expected HTTP status $EXPECTED_HTTP_STATUS for inventory command but received $HTTP_STATUS!"
+	exit 1
+    fi
+
+    if grep -q $BOXNAME /tmp/inventory; then
+	echo "ERROR: The inventory did list $BOXNAME but should not!"
+	exit 1
+    fi
+}
+

@@ -26,7 +26,7 @@ docker run \
        --name vagrancy_test \
        -v /tmp/vagrancy_test:/var/tmp/vagrancy \
        -p 127.0.0.1:9000:9000 \
-       vagrancy_test -p 9000
+       vagrancy_test -a 0.0.0.0 -p 9000
 sleep 5s
 
 # Perform the tests

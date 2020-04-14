@@ -14,7 +14,9 @@ echo "Compare the uploaded and the downloaded box files..."
 cmp /tmp/dummy.box /tmp/dummy.box.2
 
 checkVersionList test/ubuntu
+checkInInventory test/ubuntu
 
 deleteBox test/ubuntu
+checkNotInInventory test/ubuntu
 
-rm -f /tmp/dummy.box /tmp/dummy.box.2 /tmp/versionlist.txt /tmp/versionlist.txt.2
+rm -f /tmp/dummy.box /tmp/dummy.box.2 /tmp/versionlist.txt /tmp/inventory
